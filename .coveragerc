@@ -1,0 +1,3 @@
+[run]
+source = jobtrack2
+omit = jobtrack2/test*
