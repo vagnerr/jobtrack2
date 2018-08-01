@@ -5,7 +5,19 @@ import zope.sqlalchemy
 
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines
-from .mymodel import MyModel  # flake8: noqa
+from .agency import Agency  # flake8: noqa
+from .agent import Agent,JobAgentLink
+from .company import Company
+from .job import Job
+from .jobnote import JobNote
+from .jobrelated import JobRelated
+from .jobtype import JobType
+from .keyword import Keyword,KeywordLink
+from .location import Location
+from .nextaction import NextAction
+from .source import Source
+from .status import Status
+from .user import User
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
