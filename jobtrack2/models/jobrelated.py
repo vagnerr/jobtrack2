@@ -23,6 +23,3 @@ class JobRelated(Base):
     child_id = Column(ForeignKey('job.id'), nullable=False)
     child = relationship('Job', backref='parent_jobs', foreign_keys=[child_id])
 
-    #"New" Fields added for V2
-#    creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
-#    creator = relationship('User', backref='created_pages')

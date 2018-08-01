@@ -51,8 +51,8 @@ class Job(Base):
 
     #"New" Fields added for V2
     deleted = Column(Boolean(create_constraint=False), default=False)  # delete JOb. hide from interface before ultimately purging them. (NOTE That would need to kill the related data)
-  #  creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
-   # creator = relationship('User', backref='created_pages')
+    creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
+    creator = relationship('User', backref='created_jobs')
 
     # LNK table for keywords...
     #https://stackoverflow.com/questions/5756559/how-to-build-many-to-many-relations-using-sqlalchemy-a-good-example

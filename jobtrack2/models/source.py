@@ -19,5 +19,5 @@ class Source(Base):
     description = Column(Text, nullable=False)
 
     #"New" Fields added for V2
-  #  creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
- #   creator = relationship('User', backref='created_pages')
+    creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
+    creator = relationship('User', backref='created_sources')

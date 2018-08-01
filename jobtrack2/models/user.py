@@ -11,7 +11,8 @@ from .meta import Base
 
 
 class User(Base):
-    """ The SQLAlchemy declarative model class for a User object. """
+    """ The SQLAlchemy declarative model class for a User object.
+        New table, mostly for auditing creation data"""
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     name = Column(Text, nullable=False, unique=True)

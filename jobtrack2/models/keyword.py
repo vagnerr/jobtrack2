@@ -21,14 +21,9 @@ KeywordLink = Table('keyword_lnk', Base.metadata,
     # Could add creator info here???
 )
 
-#class Item(Base):
-#    __tablename__ = 'Item'
-#    id = Column(Integer, primary_key=True)
-#    name = Column(String(255))
-#    description = Column(Text)
-#    details = relationship('Detail', secondary=ItemDetail, backref='Item')
-
 class Keyword(Base):
+    """ The SQLAlchemy declarative model class for a Keyword object.
+        Arbritrary keywords"""
     __tablename__ = 'keyword'
     id = Column(Integer, primary_key=True)
     keyword = Column(Text)

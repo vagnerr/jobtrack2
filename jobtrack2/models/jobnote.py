@@ -13,7 +13,7 @@ from .meta import Base
 
 class JobNote(Base):
     """ The SQLAlchemy declarative model class for a Jobnote object.
-        This is for the status of the job ( Open / Closed / Rejected ... etc)"""
+        This is for making notes about the particular job"""
     __tablename__ = 'jobnote'
     id = Column(Integer, primary_key=True)
     adddate = Column(DateTime, nullable=False)
@@ -26,5 +26,5 @@ class JobNote(Base):
 
     #"New" Fields added for V2
     deleted = Column(Boolean(create_constraint=False))  # delete note. hide from interface before ultimately purging them.
-#    creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
-  #  creator = relationship('User', backref='created_pages')
+    creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
+    creator = relationship('User', backref='created_notes')

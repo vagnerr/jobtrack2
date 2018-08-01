@@ -20,8 +20,7 @@ JobAgentLink = Table('jobagent_lnk', Base.metadata,
 
 
 class Agent(Base):
-    """ The SQLAlchemy declarative model class for a Agent object.
-        This is for the next action of the job ( Call/ email/ close etc)"""
+    """ The SQLAlchemy declarative model class for a Agent object."""
     __tablename__ = 'agent'
     id = Column(Integer, primary_key=True)
     name = Column(Text, nullable=False, unique=True)
@@ -32,7 +31,7 @@ class Agent(Base):
     agency = relationship('Agency', backref='agents')
 
     #"New" Fields added for V2
-   # creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
-   # creator = relationship('User', backref='created_pages')
+    creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
+    creator = relationship('User', backref='created_agents')
 
     jobs = relationship('Job', secondary=JobAgentLink, backref='agent')

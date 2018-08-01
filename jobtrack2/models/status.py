@@ -23,5 +23,5 @@ class Status(Base):
     # for c_c=false see -> https://bitbucket.org/zzzeek/sqlalchemy/issues/3067/naming-convention-exception-for-boolean
     active = Column(Boolean(create_constraint=False), default=True)  # Mark if this state signifies an open active job
 
- #   creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
- #   creator = relationship('User', backref='created_pages')
+    creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
+    creator = relationship('User', backref='created_status')
