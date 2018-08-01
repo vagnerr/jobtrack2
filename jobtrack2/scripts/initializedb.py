@@ -17,17 +17,8 @@ from ..models import (
     )
 
 from ..models import (
-    Agency,
-    Agent, JobAgentLink,
-    Company,
-    Job,
-    JobNote,
-    JobRelated,
     JobType,
-    Keyword,KeywordLink,
-    Location,
     NextAction,
-    Source,
     Status,
     User
 )
@@ -55,5 +46,61 @@ def main(argv=sys.argv):
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
 
-        #model = MyModel(name='one', value=1)
-        #dbsession.add(model)
+        # SYSTEM user for ownership of initial bootstrap constants
+        sys_user = User(name='SYSTEM', role='ADMIN')
+        dbsession.add(sys_user)
+
+        # TODO: Move bootstrap data to its own file
+        next_actions=[
+            [ 1,'NONE','Do Nothing'],
+            [ 2,'CALL','Call'],
+            [ 3,'EMAIL','EMail'],
+            [ 4,'CHECK','Check Status'],
+            [ 5,'POST','Write to them'],
+            [ 6,'CLOSE','Close Job'],
+        ]
+        for action in next_actions:
+            nextaction = NextAction(
+                            id=action[0],
+                            keyword=action[1],
+                            description=action[2],
+                            creator=sys_user
+                        )
+            dbsession.add(nextaction)
+
+
+        statuses = [
+            [ 1,'OPEN','Open',1],
+            [ 2,'HOLD','On Hold',1],
+            [ 3,'NORESP','Closed - No response',0],
+            [ 4,'REJECTED','Closed - Rejected',0],
+            [ 5,'CLOSED','Closed - Other',0],
+            [ 6,'NOVAC','Closed - No Vacancies',0],
+        ]
+        for status in statuses:
+            stat = Status(
+                            id=status[0],
+                            keyword=status[1],
+                            description=status[2],
+                            active=status[3],
+                            creator=sys_user
+                        )
+            dbsession.add(stat)
+
+        jobtypes = [
+            [ 1,'PERM','Permanent'],
+            [ 2,'CONTRACT','Contract'],
+            [ 3,'PART','Part Time'],
+        ]
+
+        for jobtype in jobtypes:
+            jtype = JobType(
+                            id=jobtype[0],
+                            keyword=jobtype[1],
+                            description=jobtype[2],
+                            creator=sys_user
+                        )
+            dbsession.add(jtype)
+
+        #Still to add...
+        #   contact_type, job_data_type(?)
