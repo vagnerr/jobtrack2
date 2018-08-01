@@ -15,7 +15,7 @@ JobAgentLink = Table('jobagent_lnk', Base.metadata,
     Column('id', Integer, primary_key=True),
     Column('job_id', Integer, ForeignKey('job.id')),
     Column('agent_id', Integer, ForeignKey('agent.id')),
-    Column('primary', Boolean, nullable=False)
+    Column('primary', Boolean(create_constraint=False), nullable=False)
 )
 
 

@@ -25,6 +25,6 @@ class JobNote(Base):
     agent = relationship('Agent', backref='job_notes')
 
     #"New" Fields added for V2
-    deleted = Column(Boolean)  # delete note. hide from interface before ultimately purging them.
+    deleted = Column(Boolean(create_constraint=False))  # delete note. hide from interface before ultimately purging them.
 #    creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
   #  creator = relationship('User', backref='created_pages')

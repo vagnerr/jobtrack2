@@ -16,8 +16,8 @@ from .meta import Base
 # https://stackoverflow.com/questions/5756559/how-to-build-many-to-many-relations-using-sqlalchemy-a-good-example
 KeywordLink = Table('keyword_lnk', Base.metadata,
     Column('id', Integer, primary_key=True),
-    Column('job_id', Integer, ForeignKey('Job.id')),
-    Column('keyword_id', Integer, ForeignKey('Keyword.id'))
+    Column('job_id', Integer, ForeignKey('job.id')),
+    Column('keyword_id', Integer, ForeignKey('keyword.id'))
     # Could add creator info here???
 )
 

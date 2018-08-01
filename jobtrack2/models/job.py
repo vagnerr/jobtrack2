@@ -47,10 +47,10 @@ class Job(Base):
     status_id = Column(ForeignKey('status.id'), nullable=True) # don't always have an agency upfront
     status = relationship('Status', backref='jobs')
 
-    fake = Column(Boolean, nullable=False)
+    fake = Column(Boolean(create_constraint=False), default=False)
 
     #"New" Fields added for V2
-    deleted = Column(Boolean)  # delete JOb. hide from interface before ultimately purging them. (NOTE That would need to kill the related data)
+    deleted = Column(Boolean(create_constraint=False), default=False)  # delete JOb. hide from interface before ultimately purging them. (NOTE That would need to kill the related data)
   #  creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
    # creator = relationship('User', backref='created_pages')
 

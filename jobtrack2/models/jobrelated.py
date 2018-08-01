@@ -19,9 +19,9 @@ class JobRelated(Base):
     description = Column(Text, nullable=False)
 
     parent_id = Column(ForeignKey('job.id'), nullable=False)
-    parent = relationship('Job', backref='child_jobs')
+    parent = relationship('Job', backref='child_jobs', foreign_keys=[parent_id])
     child_id = Column(ForeignKey('job.id'), nullable=False)
-    child = relationship('Job', backref='parent_jobs')
+    child = relationship('Job', backref='parent_jobs', foreign_keys=[child_id])
 
     #"New" Fields added for V2
 #    creator_id = Column(ForeignKey('users.id'), nullable=False) # Everything will have a creator
