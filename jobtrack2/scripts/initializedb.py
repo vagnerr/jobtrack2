@@ -20,7 +20,10 @@ from ..models import (
     JobType,
     NextAction,
     Status,
-    User
+    User,
+    Job,
+    JobRelated,
+    Keyword
 )
 
 def usage(argv):
@@ -104,3 +107,23 @@ def main(argv=sys.argv):
 
         #Still to add...
         #   contact_type, job_data_type(?)
+
+
+
+        # testing data...
+        import datetime
+        parent_job = Job(adddate=datetime.datetime.now(),title='job1', salary='salary1',creator=sys_user)
+        child_job = Job(adddate=datetime.datetime.now(),title='job2', salary='salary2',creator=sys_user)
+        keyword1 = Keyword(keyword='newkeyword')
+        keyword2 = Keyword(keyword='new2')
+        parent_job.keywords.append(keyword1)
+        child_job.keywords.append(keyword1)
+        child_job.keywords.append(keyword2)
+        #parent_job.child_jobs.append(child_job)
+        jobrelate = JobRelated(parent=parent_job, child=child_job, description='relatedtest')
+        dbsession.add(parent_job)
+        dbsession.add(child_job)
+        dbsession.add(jobrelate)
+
+
+        #print(keyword1.jobs[0].title, '---job2')

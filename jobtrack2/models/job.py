@@ -18,8 +18,8 @@ class Job(Base):
     __tablename__ = 'job'
     id = Column(Integer, primary_key=True)
     adddate = Column(DateTime, nullable=False)
-    reference = Column(Text, nullable=False)
-    changedate = Column(DateTime, nullable=False)
+    reference = Column(Text, nullable=True)
+    changedate = Column(DateTime, nullable=True)
 
     nextaction_id = Column(ForeignKey('nextaction.id'), nullable=True)  # only time would be null is if the job has been closed
     nextaction = relationship('NextAction', backref='jobs')
