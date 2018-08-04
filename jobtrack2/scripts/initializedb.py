@@ -23,7 +23,14 @@ from ..models import (
     User,
     Job,
     JobRelated,
-    Keyword
+    Keyword,
+    CompanyContact,
+    ContactType,
+    Company,
+    Agent,
+    Agency,
+    AgentContact,
+    AgencyContact
 )
 
 def usage(argv):
@@ -111,6 +118,7 @@ def main(argv=sys.argv):
 
 
         # testing data...
+        # TODO: (#6) Figure out how to make this into proper unit tests
         import datetime
         parent_job = Job(adddate=datetime.datetime.now(),title='job1', salary='salary1',creator=sys_user)
         child_job = Job(adddate=datetime.datetime.now(),title='job2', salary='salary2',creator=sys_user)
@@ -125,5 +133,27 @@ def main(argv=sys.argv):
         dbsession.add(child_job)
         dbsession.add(jobrelate)
 
+        # checking contacts
 
+        company = Company(name="foo bar Ltd", creator=sys_user)
+        parent_job.company=company
+        ct = ContactType(keyword='PHONE', description='Phone', creator=sys_user)
+
+        cont = CompanyContact(contacttype=ct, data='123456789')
+        company.contacts.append(cont)
+
+        agency = Agency(name='Agents R US', creator=sys_user)
+        agent = Agent(name='Mr Smith', creator=sys_user)
+        agency.agents.append(agent)
+
+        aycont = AgencyContact(contacttype=ct, data='987654321')
+        ctcont = AgentContact(contacttype=ct, data='99999999')
+
+        agency.contacts.append(aycont)
+        agent.contacts.append(ctcont)
+
+        parent_job.agents.append(agent)
+        parent_job.agency=(agency)
+
+        agency.jobs.append(child_job)
         #print(keyword1.jobs[0].title, '---job2')

@@ -18,6 +18,10 @@ from .nextaction import NextAction
 from .source import Source
 from .status import Status
 from .user import User
+from .contacttype import ContactType
+from .companycontact import CompanyContact
+from .agencycontact import AgencyContact
+from .agentcontact import AgentContact
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup

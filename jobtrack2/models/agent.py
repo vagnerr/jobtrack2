@@ -15,7 +15,7 @@ JobAgentLink = Table('jobagent_lnk', Base.metadata,
     Column('id', Integer, primary_key=True),
     Column('job_id', Integer, ForeignKey('job.id')),
     Column('agent_id', Integer, ForeignKey('agent.id')),
-    Column('primary', Boolean(create_constraint=False), nullable=False)
+    Column('primary', Boolean(create_constraint=False), nullable=True)
 )
 
 
@@ -24,9 +24,7 @@ class Agent(Base):
     __tablename__ = 'agent'
     id = Column(Integer, primary_key=True)
     name = Column(Text, nullable=False, unique=True)
-    description = Column(Text, nullable=False)
 
-    #"New" Fields added for V2
     agency_id = Column(ForeignKey('agency.id'), nullable=True) # Solo "agents"
     agency = relationship('Agency', backref='agents')
 
