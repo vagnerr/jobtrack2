@@ -115,11 +115,31 @@ def main(argv=sys.argv):
         #Still to add...
         #   contact_type, job_data_type(?)
 
+        contacttypes = [
+            [ 1,'PHONE','Telephone'],
+            [ 2,'PHONEDL','Direct Line'],
+            [ 3,'FAX','Fax Number'],
+            [ 4,'EMAIL','EMail Address'],
+            [ 5,'ADDRESS','Address'],
+            [ 6,'URL','Web Address'],
+        ]
+        for contacttype in contacttypes:
+            ctype = ContactType(
+                id=contacttype[0],
+                keyword=contacttype[1],
+                description=contacttype[2],
+                creator=sys_user
+            )
+            dbsession.add(ctype)
+
+        # Not Bothering with prefilled Location data this time.
+
 
 
         # testing data...
         # TODO: (#6) Figure out how to make this into proper unit tests
         import datetime
+        ct = ctype  # just grab the last created contact type for testing
         parent_job = Job(adddate=datetime.datetime.now(),title='job1', salary='salary1',creator=sys_user)
         child_job = Job(adddate=datetime.datetime.now(),title='job2', salary='salary2',creator=sys_user)
         keyword1 = Keyword(keyword='newkeyword')
@@ -137,7 +157,7 @@ def main(argv=sys.argv):
 
         company = Company(name="foo bar Ltd", creator=sys_user)
         parent_job.company=company
-        ct = ContactType(keyword='PHONE', description='Phone', creator=sys_user)
+        #ct = ContactType(keyword='PHONE', description='Phone', creator=sys_user)
 
         cont = CompanyContact(contacttype=ct, data='123456789')
         company.contacts.append(cont)
