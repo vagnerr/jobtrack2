@@ -23,3 +23,5 @@ test
 jobtrack2.sqlite
 
 \.vscode/
+
+jobtrack2_schema\.sqlite

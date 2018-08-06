@@ -15,8 +15,23 @@ from ..models import (
     get_session_factory,
     get_tm_session,
     )
-from ..models import MyModel
 
+from ..models import (
+    JobType,
+    NextAction,
+    Status,
+    User,
+    Job,
+    JobRelated,
+    Keyword,
+    CompanyContact,
+    ContactType,
+    Company,
+    Agent,
+    Agency,
+    AgentContact,
+    AgencyContact
+)
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
@@ -41,5 +56,124 @@ def main(argv=sys.argv):
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
 
-        model = MyModel(name='one', value=1)
-        dbsession.add(model)
+        # SYSTEM user for ownership of initial bootstrap constants
+        sys_user = User(name='SYSTEM', role='ADMIN')
+        dbsession.add(sys_user)
+
+        # TODO: Move bootstrap data to its own file
+        next_actions=[
+            [ 1,'NONE','Do Nothing'],
+            [ 2,'CALL','Call'],
+            [ 3,'EMAIL','EMail'],
+            [ 4,'CHECK','Check Status'],
+            [ 5,'POST','Write to them'],
+            [ 6,'CLOSE','Close Job'],
+        ]
+        for action in next_actions:
+            nextaction = NextAction(
+                            id=action[0],
+                            keyword=action[1],
+                            description=action[2],
+                            creator=sys_user
+                        )
+            dbsession.add(nextaction)
+
+
+        statuses = [
+            [ 1,'OPEN','Open',1],
+            [ 2,'HOLD','On Hold',1],
+            [ 3,'NORESP','Closed - No response',0],
+            [ 4,'REJECTED','Closed - Rejected',0],
+            [ 5,'CLOSED','Closed - Other',0],
+            [ 6,'NOVAC','Closed - No Vacancies',0],
+        ]
+        for status in statuses:
+            stat = Status(
+                            id=status[0],
+                            keyword=status[1],
+                            description=status[2],
+                            active=status[3],
+                            creator=sys_user
+                        )
+            dbsession.add(stat)
+
+        jobtypes = [
+            [ 1,'PERM','Permanent'],
+            [ 2,'CONTRACT','Contract'],
+            [ 3,'PART','Part Time'],
+        ]
+
+        for jobtype in jobtypes:
+            jtype = JobType(
+                            id=jobtype[0],
+                            keyword=jobtype[1],
+                            description=jobtype[2],
+                            creator=sys_user
+                        )
+            dbsession.add(jtype)
+
+        #Still to add...
+        #   contact_type, job_data_type(?)
+
+        contacttypes = [
+            [ 1,'PHONE','Telephone'],
+            [ 2,'PHONEDL','Direct Line'],
+            [ 3,'FAX','Fax Number'],
+            [ 4,'EMAIL','EMail Address'],
+            [ 5,'ADDRESS','Address'],
+            [ 6,'URL','Web Address'],
+        ]
+        for contacttype in contacttypes:
+            ctype = ContactType(
+                id=contacttype[0],
+                keyword=contacttype[1],
+                description=contacttype[2],
+                creator=sys_user
+            )
+            dbsession.add(ctype)
+
+        # Not Bothering with prefilled Location data this time.
+
+
+
+        # testing data...
+        # TODO: (#6) Figure out how to make this into proper unit tests
+        import datetime
+        ct = ctype  # just grab the last created contact type for testing
+        parent_job = Job(title='job1', salary='salary1',creator=sys_user)
+        child_job = Job(title='job2', salary='salary2',creator=sys_user)
+        keyword1 = Keyword(keyword='newkeyword')
+        keyword2 = Keyword(keyword='new2')
+        parent_job.keywords.append(keyword1)
+        child_job.keywords.append(keyword1)
+        child_job.keywords.append(keyword2)
+        #parent_job.child_jobs.append(child_job)
+        jobrelate = JobRelated(parent=parent_job, child=child_job, description='relatedtest')
+        dbsession.add(parent_job)
+        dbsession.add(child_job)
+        dbsession.add(jobrelate)
+
+        # checking contacts
+
+        company = Company(name="foo bar Ltd", creator=sys_user)
+        parent_job.company=company
+        #ct = ContactType(keyword='PHONE', description='Phone', creator=sys_user)
+
+        cont = CompanyContact(contacttype=ct, data='123456789')
+        company.contacts.append(cont)
+
+        agency = Agency(name='Agents R US', creator=sys_user)
+        agent = Agent(name='Mr Smith', creator=sys_user)
+        agency.agents.append(agent)
+
+        aycont = AgencyContact(contacttype=ct, data='987654321')
+        ctcont = AgentContact(contacttype=ct, data='99999999')
+
+        agency.contacts.append(aycont)
+        agent.contacts.append(ctcont)
+
+        parent_job.agents.append(agent)
+        parent_job.agency=(agency)
+
+        agency.jobs.append(child_job)
+        #print(keyword1.jobs[0].title, '---job2')
