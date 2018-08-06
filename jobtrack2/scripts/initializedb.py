@@ -140,8 +140,8 @@ def main(argv=sys.argv):
         # TODO: (#6) Figure out how to make this into proper unit tests
         import datetime
         ct = ctype  # just grab the last created contact type for testing
-        parent_job = Job(adddate=datetime.datetime.now(),title='job1', salary='salary1',creator=sys_user)
-        child_job = Job(adddate=datetime.datetime.now(),title='job2', salary='salary2',creator=sys_user)
+        parent_job = Job(title='job1', salary='salary1',creator=sys_user)
+        child_job = Job(title='job2', salary='salary2',creator=sys_user)
         keyword1 = Keyword(keyword='newkeyword')
         keyword2 = Keyword(keyword='new2')
         parent_job.keywords.append(keyword1)

@@ -1,3 +1,6 @@
+import datetime
+import datetime
+
 from sqlalchemy import (
     Column,
     ForeignKey,
@@ -17,9 +20,9 @@ class Job(Base):
         Main job details."""
     __tablename__ = 'job'
     id = Column(Integer, primary_key=True)
-    adddate = Column(DateTime, nullable=False)
+    adddate = Column(DateTime, nullable=False, default=datetime.datetime.now)
     reference = Column(Text, nullable=True)
-    changedate = Column(DateTime, nullable=True)
+    changedate = Column(DateTime, nullable=False, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
     nextaction_id = Column(ForeignKey('nextaction.id'), nullable=True)  # only time would be null is if the job has been closed
     nextaction = relationship('NextAction', backref='jobs')
