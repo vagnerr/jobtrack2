@@ -1,0 +1,24 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="content">
+<h1>Company List</h1>
+
+<table border='1'>
+    <tr>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Jobs</th>
+    </tr>
+
+    {% for company in companies %}
+        <tr>
+            <td><a href="{{request.route_url('company_detail', companyid=company.id)}}">{{company.id}}</a></td>
+            <td>{{company.name}}</td>
+            <td>{{company.jobs.__len__()}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</div>
+{% endblock content %}
