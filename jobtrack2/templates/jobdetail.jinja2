@@ -5,32 +5,90 @@
 <h1>Job Detail</h1>
 
 <table border='1'>
+
     <tr>
       <th>No.</th>
+      <td>{{job.id}}</td>
+    </tr>
+    <tr>
       <th>Added</th>
-      <th>Last Update</th>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Company</th>
+        <td>{{job.adddate.date()}}</td>
+    </tr>
+    <tr>
       <th>Ref</th>
-      <th>Source</th>
-      <th>Agency</th>
-      <th>Status</th>
+        <td>{{job.reference}}</td>
     </tr>
 
+    <tr>
+      <th>Last Update</th>
+        <td>{{job.changedate.date()}}</td>
+    </tr>
+    <tr>
+      <th>Next Action</th>
+        <td>{{job.nextaction.description}}</td>
+    </tr>
+    <tr>
+      <th>Title</th>
+        <td>{{job.title}}</td>
+    </tr>
+    <tr>
+      <th>Type</th>
+        <td>{{job.jobtype.description}}</td>
+    </tr>
+    <tr>
+      <th>Salary</th>
+        <td>{{job.salary}}</td>
+    </tr>
 
-        <tr>
-            <td><a href="{{request.route_url('job_detail', jobid=job.id)}}">{{job.id}}</a></td>
-            <td>{{job.adddate.date()}}</td>
-            <td>{{job.changedate.date()}}</td>
-            <td>{{job.title}}</td>
-            <td>{{job.jobtype.description}}</td>
-            <td>{{job.company.name}}</td>
-            <td>{{job.reference}}</td>
-            <td>{{job.source.description}}</td>
-            <td>{{job.agency.name}}</td>
-            <td>{{job.status.description}}</td>
-        </tr>
+    <tr>
+      <th>Company</th>
+        <td>{{job.company.name}}</td>
+    </tr>
+    <tr>
+      <th>Location</th>
+        <td>{{job.location.description}}</td>
+    </tr>
+
+    <tr>
+      <th>Ref</th>
+        <td>{{job.reference}}</td>
+    </tr>
+    <tr>
+      <th>Source</th>
+        <td>{{job.source.description}}</td>
+    </tr>
+    <tr>
+      <th>Agency</th>
+        <td>{{job.agency.name}}</td>
+    </tr>
+    <tr>
+      <th>Agents</th>
+      <td>
+        <ul>
+          {% for agent in job.agents %}
+            <li>{{agent.name}}</li>
+          {% endfor %}
+        </ul>
+      <td>
+    </tr>
+    <tr>
+      <th>Status</th>
+        <td>{{job.status.description}}</td>
+    </tr>
+    <tr>
+      <th>Notes</th>
+      <td>
+        <ul>
+        {% for note in job.job_notes %}
+          <li>
+            {{note.adddate.date()}} -
+            {{note.agent.name}} -
+            {{note.data}}
+          </li>
+        {% endfor %}
+        </ul>
+      </td>
+    </tr>
 
 </table>
 
