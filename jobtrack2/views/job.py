@@ -14,6 +14,12 @@ def joblist(request):
     return {'jobs': query.all(), 'project': 'JobTrack2'}
 
 
+@view_config(route_name='job_detail', renderer='../templates/jobdetail.jinja2')
+def jobdetail(request):
+    job = request.context.job
+    return {'job': job, 'project': 'JobTrack2'}
+
+
 #TODO: Probably should put this error message somewhere central
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem

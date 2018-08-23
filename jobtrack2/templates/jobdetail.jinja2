@@ -1,0 +1,38 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="content">
+<h1>Job Detail</h1>
+
+<table border='1'>
+    <tr>
+      <th>No.</th>
+      <th>Added</th>
+      <th>Last Update</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Company</th>
+      <th>Ref</th>
+      <th>Source</th>
+      <th>Agency</th>
+      <th>Status</th>
+    </tr>
+
+
+        <tr>
+            <td><a href="{{request.route_url('job_detail', jobid=job.id)}}">{{job.id}}</a></td>
+            <td>{{job.adddate.date()}}</td>
+            <td>{{job.changedate.date()}}</td>
+            <td>{{job.title}}</td>
+            <td>{{job.jobtype.description}}</td>
+            <td>{{job.company.name}}</td>
+            <td>{{job.reference}}</td>
+            <td>{{job.source.description}}</td>
+            <td>{{job.agency.name}}</td>
+            <td>{{job.status.description}}</td>
+        </tr>
+
+</table>
+
+</div>
+{% endblock content %}
