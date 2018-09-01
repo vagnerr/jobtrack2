@@ -3,7 +3,7 @@ from pyramid.httpexceptions import (
     HTTPFound,
 )
 
-from .models import Job,Agency,Agent
+from .models import Job,Agency,Agent,Company
 
 def includeme(config):
     config.add_static_view('static', 'static', cache_max_age=3600)
@@ -15,7 +15,7 @@ def includeme(config):
     config.add_route('agent_list','/agent')
     config.add_route('agent_detail','/agent/{agentid}', factory=agent_factory)
     config.add_route('company_list','/company')
-    config.add_route('company_detail','/company/{companyid}')
+    config.add_route('company_detail','/company/{companyid}', factory=company_factory)
 
 
 
@@ -84,3 +84,15 @@ def agent_factory(request):
 class AgentResource(object):
     def __init__(self, agent):
         self.agent = agent
+
+
+def company_factory(request):
+    companyid = request.matchdict['companyid']
+    company = request.dbsession.query(Company).filter_by(id=companyid).first()
+    if company is None:
+        raise HTTPNotFound
+    return CompanyResource(company)
+
+class CompanyResource(object):
+    def __init__(self, company):
+        self.company = company

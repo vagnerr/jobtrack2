@@ -6,12 +6,17 @@ from sqlalchemy.exc import DBAPIError
 from ..models import Company
 
 @view_config(route_name='company_list', renderer='../templates/companylist.jinja2')
-def agentlist(request):
+def companylist(request):
     try:
         query = request.dbsession.query(Company)
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'companies': query.all(), 'project': 'JobTrack2'}
+
+@view_config(route_name='company_detail', renderer='../templates/companydetail.jinja2')
+def companydetail(request):
+    company = request.context.company
+    return {'company': company, 'project': 'JobTrack2'}
 
 
 #TODO: Probably should put this error message somewhere central
