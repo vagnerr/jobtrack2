@@ -13,6 +13,13 @@ def agentlist(request):
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'agents': query.all(), 'project': 'JobTrack2'}
 
+@view_config(route_name='agent_detail', renderer='../templates/agentdetail.jinja2')
+def agentdetail(request):
+    agent = request.context.agent
+    return {'agent': agent, 'project': 'JobTrack2'}
+
+
+
 
 #TODO: Probably should put this error message somewhere central
 db_err_msg = """\
