@@ -11,6 +11,6 @@ class TestInitializeDB(unittest.TestCase):
 
     def test_run(self):
         from ..scripts.initializedb import main
-        main(argv=['foo', 'development.ini'])
-        self.assertTrue(os.path.exists('jobtrack2.sqlite'))
-        os.remove('jobtrack2.sqlite')
+        main(argv=['foo', 'development_test.ini'])
+        self.assertTrue(os.path.exists('jobtrack2_test.sqlite'))
+        os.remove('jobtrack2_test.sqlite')

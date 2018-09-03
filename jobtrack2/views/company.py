@@ -3,19 +3,23 @@ from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
 
-#from ..models import MyModel
-from ..models import Job
+from ..models import Company
 
-@view_config(route_name='home', renderer='../templates/mytemplate.jinja2')
-def my_view(request):
+@view_config(route_name='company_list', renderer='../templates/companylist.jinja2')
+def companylist(request):
     try:
-        one = "helloworld"
-        #query = request.dbsession.query(MyModel)
-        #one = query.filter(MyModel.name == 'one').first()
+        query = request.dbsession.query(Company)
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'one': one, 'project': 'JobTrack2'}
+    return {'companies': query.all(), 'project': 'JobTrack2'}
 
+@view_config(route_name='company_detail', renderer='../templates/companydetail.jinja2')
+def companydetail(request):
+    company = request.context.company
+    return {'company': company, 'project': 'JobTrack2'}
+
+
+#TODO: Probably should put this error message somewhere central
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
 might be caused by one of the following things:

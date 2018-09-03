@@ -1,0 +1,45 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="content">
+<h1>Agency Detail</h1>
+
+<table border='1'>
+
+    <tr>
+      <th>No.</th>
+      <td>{{agency.id}}</td>
+    </tr>
+    <tr>
+      <th>Name</th>
+        <td>{{agency.name}}</td>
+    </tr>
+    <tr>
+      <th>Agents</th>
+      <td>
+        <ul>
+          {% for agent in agency.agents %}
+            <li><a href="{{request.route_url('agent_detail', agentid=agent.id)}}">{{agent.name}}</a></li>
+          {% endfor %}
+        </ul>
+      <td>
+    </tr>
+    <tr>
+      <th>Jobs</th>
+      <td>
+        <ul>
+          {% for job in agency.jobs %}
+            <li>
+              <a href="{{request.route_url('job_detail', jobid=job.id)}}">
+                {{job.title}} ({{job.status.description}})
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      <td>
+    </tr>
+
+</table>
+
+</div>
+{% endblock content %}

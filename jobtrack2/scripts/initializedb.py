@@ -30,7 +30,8 @@ from ..models import (
     Agent,
     Agency,
     AgentContact,
-    AgencyContact
+    AgencyContact,
+    Source,
 )
 
 def usage(argv):
@@ -153,7 +154,17 @@ def main(argv=sys.argv):
         dbsession.add(child_job)
         dbsession.add(jobrelate)
 
+
+        source1 = Source(keyword='AGENT', description='Agent',creator=sys_user)
+        source2 = Source(keyword='SOJOBS', description='StackOverflow',creator=sys_user)
+        parent_job.source=source1
+        child_job.source=source2
+        parent_job.type_id=1
+        child_job.type_id=2
+        parent_job.status_id=1
+        child_job.status_id=2
         # checking contacts
+
 
         company = Company(name="foo bar Ltd", creator=sys_user)
         parent_job.company=company
