@@ -34,7 +34,7 @@
             </li>
           {% endfor %}
         </ul>
-      <td>
+      </td>
     </tr>
     <tr>
       <th>Notes</th>
@@ -43,7 +43,7 @@
         {% for note in agent.job_notes %}
           <li>
             {{note.adddate.date()}} -
-            {{note.job.title}} -
+            <a href="{{request.route_url('job_detail', jobid=note.job.id)}}">{{note.job.title}}</a> -
             {{note.data}}
           </li>
         {% endfor %}
