@@ -25,10 +25,10 @@
             <td>{{job.changedate.date()}}</td>
             <td>{{job.title}}</td>
             <td>{{job.jobtype.description}}</td>
-            <td>{{job.company.name}}</td>
+            <td><a href="{{request.route_url('company_detail', companyid=job.company.id)}}">{{job.company.name}}</a></td>
             <td>{{job.reference}}</td>
             <td>{{job.source.description}}</td>
-            <td>{{job.agency.name}}</td>
+            <td><a href="{{request.route_url('agency_detail', agencyid=job.agency.id)}}">{{job.agency.name}}</a></td>
             <td>{{job.status.description}}</td>
         </tr>
     {% endfor %}
