@@ -2,8 +2,9 @@
 body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
-  color: #ffffff;
-  background: #bc2131;
+  color: #272727;
+  background: #c5d4d2;
+  margin-bottom: 60px;
 }
 h1,
 h2,
@@ -26,8 +27,63 @@ p {
 .font-bold {
   font-weight: 700;
 }
+
+.page-footer {
+  background-color: #f5f5f5;
+  border-top: 1px solid #000;
+  bottom: 0;
+
+    /* Set the fixed height of the footer here */
+  /*height: @footer_height;*/
+  height: 60px;
+
+  width: 100%;
+
+}
+
+
+/* Clickable rows */
+*[data-href] {
+  cursor: pointer;
+}
+td a {
+  display:inline-block;
+  min-height:100%;
+  width:100%;
+  padding: 5px; /* add your padding here */
+}
+td {
+  padding:0;
+}
+
+
+.page-footer .links {
+  float: right;
+  right: 0;
+  /*margin-top: 125px;*/
+}
+.page-footer .links ul {
+  display: block;
+  padding-left: 20px;
+  margin: 0;
+}
+.page-footer .links ul li {
+  list-style: none;
+  display: inline;
+  margin: 0 10px;
+}
+
+.page-footer .copyright {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #070707;
+  text-transform: lowercase;
+  float: right;
+  right: 3;
+  padding-left: 30px
+}
 .starter-template {
-  margin-top: 250px;
+  margin-top: 50px;
 }
 .starter-template .content {
   margin-left: 10px;
@@ -38,14 +94,14 @@ p {
 }
 .starter-template .content h1 .smaller {
   font-size: 40px;
-  color: #f2b7bd;
+  color: #4924f0;
 }
 .starter-template .content .lead {
   font-size: 25px;
-  color: #f2b7bd;
+  color: #4924f0;
 }
 .starter-template .content .lead .font-normal {
-  color: #ffffff;
+  color: #000000;
 }
 .starter-template .links {
   float: right;
@@ -69,28 +125,28 @@ p {
   margin-right: 0;
 }
 .starter-template .links ul li.current-version {
-  color: #f2b7bd;
+  color: #4924f0;
   font-weight: 400;
 }
 .starter-template .links ul li a, a {
-  color: #f2b7bd;
+  color: #4924f0;
   text-decoration: underline;
 }
 .starter-template .links ul li a:hover, a:hover {
-  color: #ffffff;
+  color: #5c0000;
   text-decoration: underline;
 }
 .starter-template .links ul li .icon-muted {
-  color: #eb8b95;
+  color: #020202;
   margin-right: 5px;
 }
 .starter-template .links ul li:hover .icon-muted {
-  color: #ffffff;
+  color: #000000;
 }
 .starter-template .copyright {
   margin-top: 10px;
   font-size: 0.9em;
-  color: #f2b7bd;
+  color: #070707;
   text-transform: lowercase;
   float: right;
   right: 0;
@@ -112,7 +168,11 @@ p {
   }
   .starter-template .logo {
     margin: 40px auto;
+    vertical-align: top;
+    height: 100px;
+    width: 100px;
   }
+
   .starter-template .content {
     margin-left: 0;
     text-align: center;

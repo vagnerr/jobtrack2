@@ -3,22 +3,25 @@
 {% block content %}
 <div class="content">
 <h1>Company List</h1>
-
-<table border='1'>
+<div class="table-responsive">
+<table class="table table-dark table-striped table-hover table-sm">
+  <thead>
     <tr>
-      <th>No.</th>
-      <th>Name</th>
-      <th>Jobs</th>
+      <th scope="col">No.</th>
+      <th scope="col">Name</th>
+      <th scope="col">Jobs</th>
     </tr>
-
+  </thead>
+  <tbody>
     {% for company in companies %}
-        <tr>
-            <td><a href="{{request.route_url('company_detail', companyid=company.id)}}">{{company.id}}</a></td>
+        <tr class="clickable-row" data-href="{{request.route_url('company_detail', companyid=company.id)}}">
+            <th scope="row"><a href="{{request.route_url('company_detail', companyid=company.id)}}">{{company.id}}</a></th>
             <td>{{company.name}}</td>
             <td>{{company.jobs.__len__()}}</td>
         </tr>
     {% endfor %}
+  </tbody>
 </table>
-
+</div>
 </div>
 {% endblock content %}

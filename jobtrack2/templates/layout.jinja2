@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="pyramid web application">
     <meta name="author" content="Pylons Project">
-    <link rel="shortcut icon" href="{{request.static_url('jobtrack2:static/pyramid-16x16.png')}}">
+    <link rel="shortcut icon" href="{{request.static_url('jobtrack2:static/working.png')}}">
 
-    <title>Cookiecutter Alchemy project for the Pyramid Web Framework</title>
+    <title>JobTrack2</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Alternative to Gliphicon which is no longer built in to bootstrap -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
 
     <!-- Custom styles for this scaffold -->
     <link href="{{request.static_url('jobtrack2:static/theme.css')}}" rel="stylesheet">
@@ -25,43 +29,57 @@
 
   <body>
 
+{% include "navigation.jinja2" %}
+
     <div class="starter-template">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <div class="col-md-2">
-            <img class="logo img-responsive" src="{{request.static_url('jobtrack2:static/pyramid.png') }}" alt="pyramid web framework">
+            <img class="logo img-fluid" src="{{request.static_url('jobtrack2:static/working.png') }}" alt="<menatwork>">
           </div>
           <div class="col-md-10">
             {% block content %}
                 <p>No content</p>
             {% endblock content %}
-            <p>
-             <a href="{{request.route_url('home')}}">Home</a>
-            </p>
           </div>
         </div>
-        <div class="row">
-          <div class="links">
-            <ul>
-              <li><i class="glyphicon glyphicon-cog icon-muted"></i><a href="https://github.com/Pylons/pyramid">Github Project</a></li>
-              <li><i class="glyphicon glyphicon-globe icon-muted"></i><a href="https://webchat.freenode.net/?channels=pyramid">IRC Channel</a></li>
-              <li><i class="glyphicon glyphicon-home icon-muted"></i><a href="https://pylonsproject.org">Pylons Project</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="copyright">
-            Copyright &copy; Pylons Project
-          </div>
-        </div>
+
+
       </div>
     </div>
+        <footer class="page-footer fixed-bottom"
+        <div class="container-fluid">
+          <div class="row">
+            <div class="links">
+              <ul>
+                <li><i class="fas fa-cog icon-muted"></i><a href="https://github.com/vagnerr/jobtrack2">Github Project</a></li>
+                <li><i class="fas fa-home icon-muted"></i><a href="https://www.vagnerr.com/">vagnerr.com</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="copyright">
+              Copyright &copy; Peter J. Wise
+            </div>
+          </div>
+        </div>
+        </footer>
 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js" integrity="sha384-aBL3Lzi6c9LNDGvpHkZrrm3ZVsIwohDD7CDozL0pk8FwCrfmV7H9w8j3L7ikEv6h" crossorigin="anonymous"></script>
-    <script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js" integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- Support clickable-row tables ( thanks to Ahmed Masud - https://stackoverflow.com/a/17147973/3720 ) -->
+    <script language="JavaScript">
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
+    </script>
   </body>
 </html>
