@@ -4,14 +4,16 @@
 <div class="content">
 <h1>Agency List</h1>
 
-<table border='1'>
+<table class="table table-dark table-striped table-hover table-sm">
+  <thead>
     <tr>
-      <th>No.</th>
-      <th>Name</th>
-      <th>Agents</th>
-      <th>Jobs</th>
+      <th scope="col">No.</th>
+      <th scope="col">Name</th>
+      <th scope="col">Agents</th>
+      <th scope="col">Jobs</th>
     </tr>
-
+  </thead>
+  <tbody>
     {% for agency in agencies %}
         <tr>
             <td><a href="{{request.route_url('agency_detail', agencyid=agency.id)}}">{{agency.id}}</a></td>
@@ -20,6 +22,7 @@
             <td>{{agency.jobs.__len__()}}</td>
         </tr>
     {% endfor %}
+  </tbody>
 </table>
 
 </div>

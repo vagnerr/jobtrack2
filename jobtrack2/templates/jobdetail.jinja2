@@ -3,66 +3,66 @@
 {% block content %}
 <div class="content">
 <h1>Job Detail</h1>
-
-<table border='1'>
-
+<div class="table-responsive">
+<table class="table table-dark table-sm">
+  <tbody>
     <tr>
-      <th>No.</th>
+      <th scope="row">No.</th>
       <td>{{job.id}}</td>
     </tr>
     <tr>
-      <th>Added</th>
+      <th scope="row">Added</th>
         <td>{{job.adddate.date()}}</td>
     </tr>
     <tr>
-      <th>Ref</th>
+      <th scope="row">Ref</th>
         <td>{{job.reference}}</td>
     </tr>
 
     <tr>
-      <th>Last Update</th>
+      <th scope="row">Last Update</th>
         <td>{{job.changedate.date()}}</td>
     </tr>
     <tr>
-      <th>Next Action</th>
+      <th scope="row">Next Action</th>
         <td>{{job.nextaction.description}}</td>
     </tr>
     <tr>
-      <th>Title</th>
+      <th scope="row">Title</th>
         <td>{{job.title}}</td>
     </tr>
     <tr>
-      <th>Type</th>
+      <th scope="row">Type</th>
         <td>{{job.jobtype.description}}</td>
     </tr>
     <tr>
-      <th>Salary</th>
+      <th scope="row">Salary</th>
         <td>{{job.salary}}</td>
     </tr>
 
     <tr>
-      <th>Company</th>
+      <th scope="row">Company</th>
         <td><a href="{{request.route_url('company_detail', companyid=job.company.id)}}">{{job.company.name}}</a></td>
     </tr>
     <tr>
-      <th>Location</th>
+      <th scope="row">Location</th>
         <td>{{job.location.description}}</td>
     </tr>
 
     <tr>
-      <th>Ref</th>
+      <th scope="row">Ref</th>
         <td>{{job.reference}}</td>
     </tr>
     <tr>
-      <th>Source</th>
+      <th scope="row">Source</th>
         <td>{{job.source.description}}</td>
     </tr>
     <tr>
-      <th>Agency</th>
+      <th scope="row">Agency</th>
         <td><a href="{{request.route_url('agency_detail', agencyid=job.agency.id)}}">{{job.agency.name}}</a></td>
     </tr>
     <tr>
-      <th>Agents</th>
+      <th scope="row">Agents</th>
       <td>
         <ul>
           {% for agent in job.agents %}
@@ -72,11 +72,11 @@
       </td>
     </tr>
     <tr>
-      <th>Status</th>
+      <th scope="row">Status</th>
         <td>{{job.status.description}}</td>
     </tr>
     <tr>
-      <th>Notes</th>
+      <th scope="row">Notes</th>
       <td>
         <ul>
         {% for note in job.job_notes %}
@@ -89,8 +89,8 @@
         </ul>
       </td>
     </tr>
-
+  </tbody>
 </table>
-
+</div>
 </div>
 {% endblock content %}
