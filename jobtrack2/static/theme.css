@@ -41,6 +41,22 @@ p {
 
 }
 
+
+/* Clickable rows */
+*[data-href] {
+  cursor: pointer;
+}
+td a {
+  display:inline-block;
+  min-height:100%;
+  width:100%;
+  padding: 5px; /* add your padding here */
+}
+td {
+  padding:0;
+}
+
+
 .page-footer .links {
   float: right;
   right: 0;

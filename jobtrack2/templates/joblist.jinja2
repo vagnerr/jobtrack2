@@ -21,7 +21,7 @@
   </thead>
   <tbody>
     {% for job in jobs %}
-        <tr>
+        <tr class="clickable-row" data-href="{{request.route_url('job_detail', jobid=job.id)}}">
             <th scope="row"><a href="{{request.route_url('job_detail', jobid=job.id)}}">{{job.id}}</a></th>
             <td>{{job.adddate.date()}}</td>
             <td>{{job.changedate.date()}}</td>

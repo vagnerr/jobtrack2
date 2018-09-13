@@ -14,7 +14,7 @@
   </thead>
   <tbody>
     {% for company in companies %}
-        <tr>
+        <tr class="clickable-row" data-href="{{request.route_url('company_detail', companyid=company.id)}}">
             <th scope="row"><a href="{{request.route_url('company_detail', companyid=company.id)}}">{{company.id}}</a></th>
             <td>{{company.name}}</td>
             <td>{{company.jobs.__len__()}}</td>

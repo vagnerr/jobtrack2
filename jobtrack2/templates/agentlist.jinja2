@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     {% for agent in agents %}
-        <tr>
+        <tr class="clickable-row" data-href="{{request.route_url('agent_detail', agentid=agent.id)}}">
             <td><a href="{{request.route_url('agent_detail', agentid=agent.id)}}">{{agent.id}}</a></td>
             <td>{{agent.name}}</td>
             <td><a href="{{request.route_url('agency_detail', agencyid=agent.agency.id)}}">{{agent.agency.name}}</a></td>
