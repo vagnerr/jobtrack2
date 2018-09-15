@@ -15,19 +15,18 @@ def agencylist(request):
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'agencies': query.all(), 'project': 'JobTrack2'}
 
-@view_config(route_name='agency_detail', renderer='../templates/agencydetail.jinja2')
+@view_config(route_name='agency_detail', renderer='../templates/agencydetail.jinja2', permission='view')
 def agencydetail(request):
     agency = request.context.agency
     return {'agency': agency, 'project': 'JobTrack2'}
 
-@view_config(route_name='agency_add', renderer='../templates/agencyedit.jinja2')
+@view_config(route_name='agency_add', renderer='../templates/agencyedit.jinja2',permission='create')
 def agencyadd(request):
     #pagename = request.context.pagename
     if 'form.submitted' in request.params:
         agencyname = request.params['agencyname']
         agency = Agency(name=agencyname)
-        #page.creator = request.user
-        agency.creator_id = 1 #TODO Create "login" system to get creator
+        agency.creator = request.user
         request.dbsession.add(agency)
         request.dbsession.flush()
         next_url = request.route_url('agency_detail', agencyid=agency.id)
@@ -37,7 +36,7 @@ def agencyadd(request):
     save_url = request.route_url('agency_add')
     return dict(pagedata='', agency=None, save_url=save_url)
 
-@view_config(route_name='agency_edit', renderer='../templates/agencyedit.jinja2')
+@view_config(route_name='agency_edit', renderer='../templates/agencyedit.jinja2', permission='edit')
 def agencyedit(request):
     agency = request.context.agency
 

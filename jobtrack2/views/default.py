@@ -1,6 +1,8 @@
 from pyramid.response import Response
 from pyramid.view import view_config
 
+from ..models import User
+
 from sqlalchemy.exc import DBAPIError
 
 #from ..models import MyModel
@@ -12,6 +14,14 @@ def my_view(request):
         one = "helloworld"
         #query = request.dbsession.query(MyModel)
         #one = query.filter(MyModel.name == 'one').first()
+
+#        editor = User(name='editor', role='editor')
+#        editor.set_password('editor')
+#        request.dbsession.add(editor)
+#        basic = User(name='basic', role='basic')
+#        basic.set_password('basic')
+#        request.dbsession.add(basic)
+
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'one': one, 'project': 'JobTrack2'}

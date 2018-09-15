@@ -8,6 +8,7 @@ def main(global_config, **settings):
     config.include('pyramid_jinja2')
     config.include('.models')
     config.include('.routes')
+    config.include('.security')
     config.scan()
     my_session_factory = SignedCookieSessionFactory('itsaseekreet')
     config.set_session_factory(my_session_factory)

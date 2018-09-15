@@ -2,12 +2,19 @@ from pyramid.httpexceptions import (
     HTTPNotFound,
     HTTPFound,
 )
+from pyramid.security import (
+    Allow,
+    Everyone,
+)
+
 
 from .models import Job,Agency,Agent,Company
 
 def includeme(config):
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
+    config.add_route('login', '/login')
+    config.add_route('logout', '/logout')
     config.add_route('job_list','/job')
     config.add_route('job_detail','/job/{jobid}', factory=job_factory)
     config.add_route('agency_list','/agency')
@@ -16,7 +23,7 @@ def includeme(config):
     config.add_route('agent_detail','/agent/{agentid}', factory=agent_factory)
     config.add_route('company_list','/company')
     config.add_route('company_detail','/company/{companyid}', factory=company_factory)
-    config.add_route('agency_add', '/add_agency')
+    config.add_route('agency_add', '/add_agency', factory=new_resource_factory)
     config.add_route('agency_edit', '/agency/{agencyid}/edit', factory=agency_factory)
 
 
@@ -77,6 +84,13 @@ class AgencyResource(object):
     def __init__(self, agency):
         self.agency = agency
 
+    def __acl__(self):
+        return [
+            (Allow, Everyone, 'view'),
+            (Allow, 'role:editor', 'edit'),
+            (Allow, str(self.agency.creator_id), 'edit'),
+        ]
+
 def agent_factory(request):
     agentid = request.matchdict['agentid']
     agent = request.dbsession.query(Agent).filter_by(id=agentid).first()
@@ -99,3 +113,17 @@ def company_factory(request):
 class CompanyResource(object):
     def __init__(self, company):
         self.company = company
+
+
+#Generic new resource to attach ACL to
+def new_resource_factory(request):
+    return NewResource()
+
+class NewResource(object):
+    #def __init__(self):
+
+    def __acl__(self):
+        return [
+            (Allow, 'role:editor', 'create'),
+            (Allow, 'role:basic', 'create'),
+        ]
