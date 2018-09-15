@@ -13,7 +13,7 @@ from .meta import Base
 class Agency(Base):
     """ The SQLAlchemy declarative model class for a Agency object."""
     __tablename__ = 'agency'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(Text, nullable=False, unique=True)
 
     #"New" Fields added for V2

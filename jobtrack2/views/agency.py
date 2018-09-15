@@ -1,4 +1,6 @@
 from pyramid.response import Response
+
+from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
@@ -18,7 +20,36 @@ def agencydetail(request):
     agency = request.context.agency
     return {'agency': agency, 'project': 'JobTrack2'}
 
+@view_config(route_name='agency_add', renderer='../templates/agencyedit.jinja2')
+def agencyadd(request):
+    #pagename = request.context.pagename
+    if 'form.submitted' in request.params:
+        agencyname = request.params['agencyname']
+        agency = Agency(name=agencyname)
+        #page.creator = request.user
+        agency.creator_id = 1 #TODO Create "login" system to get creator
+        request.dbsession.add(agency)
+        request.dbsession.flush()
+        next_url = request.route_url('agency_detail', agencyid=agency.id)
+        #next_url = request.route_url('agency_list')
+        request.session.flash("success:Agency added.", "alerts")
+        return HTTPFound(location=next_url)
+    save_url = request.route_url('agency_add')
+    return dict(pagedata='', agency=None, save_url=save_url)
 
+@view_config(route_name='agency_edit', renderer='../templates/agencyedit.jinja2')
+def agencyedit(request):
+    agency = request.context.agency
+
+    if 'form.submitted' in request.params:
+        agency.name = request.params['agencyname']
+        request.session.flash("success:Agency updated.", "alerts")
+        next_url = request.route_url('agency_detail', agencyid=agency.id)
+        return HTTPFound(location=next_url)
+    return dict(
+        agency=agency,
+        save_url=request.route_url('agency_edit', agencyid=agency.id),
+        )
 
 #TODO: Probably should put this error message somewhere central
 db_err_msg = """\

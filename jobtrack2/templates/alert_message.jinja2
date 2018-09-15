@@ -1,0 +1,13 @@
+
+<!-- Push in any alert messages pulled from session flashes -->
+{% for alert_message in request.session.pop_flash('alerts') %}
+
+{% set type,message = alert_message.split(':') %}
+
+<div class="alert alert-{{type}} alert-dismissible fade show" role="alert">
+  {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}

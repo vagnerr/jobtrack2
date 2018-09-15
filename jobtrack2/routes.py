@@ -16,6 +16,8 @@ def includeme(config):
     config.add_route('agent_detail','/agent/{agentid}', factory=agent_factory)
     config.add_route('company_list','/company')
     config.add_route('company_detail','/company/{companyid}', factory=company_factory)
+    config.add_route('agency_add', '/add_agency')
+    config.add_route('agency_edit', '/agency/{agencyid}/edit', factory=agency_factory)
 
 
 
@@ -61,6 +63,7 @@ class JobResource(object):
     #        (Allow, 'role:editor', 'edit'),
     #        (Allow, str(self.page.creator_id), 'edit'),
     #    ]
+
 
 
 def agency_factory(request):

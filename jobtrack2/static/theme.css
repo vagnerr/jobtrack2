@@ -41,6 +41,13 @@ p {
 
 }
 
+/* alerts to appear top right and not shift other content */
+.alert {
+  position:absolute;
+  z-index:1;
+  right: 15px;
+  top: 15px;
+}
 
 /* Clickable rows */
 *[data-href] {

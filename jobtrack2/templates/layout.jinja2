@@ -38,6 +38,8 @@
             <img class="logo img-fluid" src="{{request.static_url('jobtrack2:static/working.png') }}" alt="<menatwork>">
           </div>
           <div class="col-md-10">
+
+            {% include "alert_message.jinja2" %}
             {% block content %}
                 <p>No content</p>
             {% endblock content %}
@@ -76,6 +78,10 @@
     <!-- Support clickable-row tables ( thanks to Ahmed Masud - https://stackoverflow.com/a/17147973/3720 ) -->
     <script language="JavaScript">
     jQuery(document).ready(function($) {
+        setTimeout(function(){
+          $(".alert").alert('close');
+        }, 2500)
+
         $(".clickable-row").click(function() {
             window.location = $(this).data("href");
         });
