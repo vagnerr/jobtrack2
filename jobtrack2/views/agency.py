@@ -34,7 +34,7 @@ def agencyadd(request):
         request.session.flash("success:Agency added.", "alerts")
         return HTTPFound(location=next_url)
     save_url = request.route_url('agency_add')
-    return dict(pagedata='', agency=None, save_url=save_url)
+    return dict(pagedata='', agency=None, save_url=save_url,page_title="New Agency",)
 
 @view_config(route_name='agency_edit', renderer='../templates/agencyedit.jinja2', permission='edit')
 def agencyedit(request):
@@ -48,6 +48,7 @@ def agencyedit(request):
     return dict(
         agency=agency,
         save_url=request.route_url('agency_edit', agencyid=agency.id),
+        page_title="Edit Agency",
         )
 
 #TODO: Probably should put this error message somewhere central

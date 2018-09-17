@@ -21,7 +21,9 @@
           {% for agent in agency.agents %}
             <li><a href="{{request.route_url('agent_detail', agentid=agent.id)}}">{{agent.name}}</a></li>
           {% endfor %}
+          <li><a href="{{request.route_url('agent_add', _query={'agencyid':agency.id}) }}"><button type="button" class="btn btn-dark btn-sm">Add</button></a></li>
         </ul>
+
       </td>
     </tr>
     <tr>

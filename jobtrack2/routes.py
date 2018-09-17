@@ -25,6 +25,8 @@ def includeme(config):
     config.add_route('company_detail','/company/{companyid}', factory=company_factory)
     config.add_route('agency_add', '/add_agency', factory=new_resource_factory)
     config.add_route('agency_edit', '/agency/{agencyid}/edit', factory=agency_factory)
+    config.add_route('agent_add', '/add_agent', factory=new_resource_factory)
+    config.add_route('agent_edit', '/agent/{agentid}/edit', factory=agent_factory)
 
 
 
@@ -101,6 +103,13 @@ def agent_factory(request):
 class AgentResource(object):
     def __init__(self, agent):
         self.agent = agent
+
+    def __acl__(self):
+        return [
+            (Allow, Everyone, 'view'),
+            (Allow, 'role:editor', 'edit'),
+            (Allow, str(self.agent.creator_id), 'edit'),
+        ]
 
 
 def company_factory(request):

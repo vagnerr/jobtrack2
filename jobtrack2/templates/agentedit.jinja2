@@ -1,0 +1,42 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="content">
+<h1>{{ page_title }}</h1>
+<form action="{{ save_url }}" method="post">
+
+<div class="form-group row">
+    <label for="inputname" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control form-control-sm" id="inputname"
+             placeholder="Name" name="agentname" value="{{ agent.name }}">
+    </div>
+
+</div>
+<div class="form-group row">
+    <label for="inputagency" class="col-sm-2 col-form-label col-form-label-sm">Agency</label>
+    <div class="col-sm-10">
+    {% if agency %}
+      {{agency.name}}
+      <input type="hidden" name="agency" value="{{agency.name}}">
+    {% else %}
+      <select class="form-control" id="inputagency" name="agency">
+        {% for agency in agencies %}
+          <option id="{{agency.id}}" {%if agent != None and agency.id == agent.agency.id%}selected{% endif %}>{{agency.name}}</option>
+        {% endfor %}
+      </select>
+    {% endif %}
+
+    </div>
+</div>
+
+
+<div class="form-group">
+    <button type="submit" name="form.submitted" value="Save" class="btn btn-default">Save</button>
+</div>
+</form>
+
+
+
+</div>
+{% endblock content %}
