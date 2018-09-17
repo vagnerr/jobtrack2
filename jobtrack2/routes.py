@@ -27,6 +27,8 @@ def includeme(config):
     config.add_route('agency_edit', '/agency/{agencyid}/edit', factory=agency_factory)
     config.add_route('agent_add', '/add_agent', factory=new_resource_factory)
     config.add_route('agent_edit', '/agent/{agentid}/edit', factory=agent_factory)
+    config.add_route('company_add', '/add_company', factory=new_resource_factory)
+    config.add_route('company_edit', '/company/{companyid}/edit', factory=company_factory)
 
 
 
@@ -123,6 +125,12 @@ class CompanyResource(object):
     def __init__(self, company):
         self.company = company
 
+    def __acl__(self):
+        return [
+            (Allow, Everyone, 'view'),
+            (Allow, 'role:editor', 'edit'),
+            (Allow, str(self.company.creator_id), 'edit'),
+        ]
 
 #Generic new resource to attach ACL to
 def new_resource_factory(request):
