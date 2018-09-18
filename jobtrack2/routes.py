@@ -29,6 +29,8 @@ def includeme(config):
     config.add_route('agent_edit', '/agent/{agentid}/edit', factory=agent_factory)
     config.add_route('company_add', '/add_company', factory=new_resource_factory)
     config.add_route('company_edit', '/company/{companyid}/edit', factory=company_factory)
+    config.add_route('job_add', '/add_job', factory=new_resource_factory)
+    config.add_route('job_edit', '/job/{jobid}/edit', factory=job_factory)
 
 
 
@@ -68,12 +70,12 @@ class JobResource(object):
     def __init__(self, job):
         self.job = job
 
-    #def __acl__(self):
-    #    return [
-    #        (Allow, Everyone, 'view'),
-    #        (Allow, 'role:editor', 'edit'),
-    #        (Allow, str(self.page.creator_id), 'edit'),
-    #    ]
+    def __acl__(self):
+        return [
+            (Allow, Everyone, 'view'),
+            (Allow, 'role:editor', 'edit'),
+            (Allow, str(self.job.creator_id), 'edit'),
+        ]
 
 
 

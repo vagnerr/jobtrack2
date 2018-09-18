@@ -1,0 +1,30 @@
+
+<!-- build_dropdown macro def -->
+
+{% macro build_dropdown(fieldname,label,list,selectedid) %}
+
+
+    <label for="input{{fieldname}}" class="col-sm-2 col-form-label col-form-label-sm">{{label}}</label>
+    <div class="col-sm-10">
+    <select class="form-control" id="input{{fieldname}}" name="{{fieldname}}">
+        <option id="0"
+          {%if selectedid != None and 0 == selectedid %}selected{% endif %}
+          > --None -- </option>
+      {% for listitem in list %}
+        <option
+            id="{{listitem.id}}"
+            {%if selectedid != None and listitem.id == selectedid%}selected{% endif %}
+          >
+            {%if listitem.name %}
+              {{listitem.name}}
+            {%else%}
+              {{listitem.description}}
+            {%endif%}
+        </option>
+      {% endfor %}
+    </select>
+
+    </div>
+
+
+{% endmacro %}

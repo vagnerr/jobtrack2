@@ -1,0 +1,58 @@
+{% extends "layout.jinja2" %}
+
+
+
+{% block content %}
+
+{% from "macros/build_dropdown.jinja2" import build_dropdown with context %}
+<div class="content">
+<h1>{{ page_title }}</h1>
+<form action="{{ save_url }}" method="post">
+
+<div class="form-group row">
+    <label for="inputtitle" class="col-sm-2 col-form-label col-form-label-sm">Title</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control form-control-sm" id="inputtitle"
+             placeholder="Job Title" name="jobtitle" value="{{ job.title }}">
+    </div>
+    <label for="inputreference" class="col-sm-2 col-form-label col-form-label-sm">Reference</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control form-control-sm" id="inputreference"
+             placeholder="Job Title" name="jobreference" value="{{ job.reference }}">
+    </div>
+
+    <!-- Next Action -->
+    {{ build_dropdown('nextaction','Next Action',nextactions,job.nextaction.id) }}
+    <!-- Type -->
+    {{ build_dropdown('jobtype','Type',jobtypes,job.jobtype.id) }}
+
+    <label for="inputsalary" class="col-sm-2 col-form-label col-form-label-sm">Salary</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control form-control-sm" id="inputsalary"
+             placeholder="Job Title" name="jobsalary" value="{{ job.salary }}">
+    </div>
+
+    <!-- Company -->
+    {{ build_dropdown('company','Company',companies,job.company.id) }}
+
+    <!-- Location -->
+    {{ build_dropdown('location','Location',locations,job.location.id) }}
+    <!-- Source -->
+    {{ build_dropdown('source','Source',sources,job.source.id) }}
+    <!-- Agency -->
+    {{ build_dropdown('agency','Agency',agencies,job.agency.id) }}
+      <!-- Agents ("detailed" edit) -->
+    <!-- Status -->
+    {{ build_dropdown('status','Status',statuses,job.status.id) }}
+      <!--- Notes ("detailed" edit) -->
+</div>
+
+<div class="form-group">
+    <button type="submit" name="form.submitted" value="Save" class="btn btn-default">Save</button>
+</div>
+</form>
+
+
+
+</div>
+{% endblock content %}
