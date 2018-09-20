@@ -41,7 +41,10 @@
     {{ build_dropdown('source','Source',sources,job.source.id) }}
     <!-- Agency -->
     {{ build_dropdown('agency','Agency',agencies,job.agency.id) }}
-      <!-- Agents ("detailed" edit) -->
+      {%if agents %}
+        <!-- Agents ("detailed" edit) -->
+        {{ build_dropdown('agent','Agent',agents,job.agent.id) }}
+      {%endif%}
     <!-- Status -->
     {{ build_dropdown('status','Status',statuses,job.status.id) }}
       <!--- Notes ("detailed" edit) -->

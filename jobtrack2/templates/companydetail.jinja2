@@ -25,6 +25,7 @@
               </a>
             </li>
           {% endfor %}
+          <li><a href="{{request.route_url('job_add', _query={'companyid':company.id}) }}"><button type="button" class="btn btn-dark btn-sm">Add</button></a></li>
         </ul>
       </td>
     </tr>

@@ -3,7 +3,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
 
-from ..models import Job,NextAction,JobType,Company,Location,Source,Agency,Status
+from ..models import Job,NextAction,JobType,Company,Location,Source,Agency,Agent,Status
 
 @view_config(route_name='job_list', renderer='../templates/joblist.jinja2')
 def joblist(request):
@@ -36,6 +36,10 @@ def jobadd(request):
             status_id = request.params['status'],
         )
         job.creator = request.user
+
+        if 'agent' in request.params:
+            agent = request.dbsession.query(Agent).filter_by(id=request.params['agent']).first()
+            job.agents.append(agent)
         request.dbsession.add(job)
         request.dbsession.flush()
         next_url = request.route_url('job_detail', jobid=job.id)
@@ -44,6 +48,28 @@ def jobadd(request):
         return HTTPFound(location=next_url)
     save_url = request.route_url('job_add')
     selectors = _get_job_selectors(request)
+    if 'companyid' in request.params:
+        # Adding agent via agency so we fix the agency
+        company = request.dbsession.query(Company).filter_by(id=request.params['companyid']).first()
+        selectors.update({'companies': company} )
+
+    if 'agentid' in request.params:
+        # Adding agent via agency so we fix the agency
+        agent = request.dbsession.query(Agent).filter_by(id=request.params['agentid']).first()
+        selectors.update({'agents': agent, 'agencies': None} )
+
+    if 'agencyid' in request.params:
+        # Adding agent via agency so we fix the agency
+        agency = request.dbsession.query(Agency).filter_by(id=request.params['agencyid']).first()
+        selectors.update({'agencies': agency} )
+        if 'agents' not in selectors:
+            # we have an agency, but no agent so allow a filtered selection
+            selectors.update(
+                {
+                   'agents': request.dbsession.query(Agent).filter_by(agency_id=request.params['agencyid'])
+                }
+            )
+
     return dict(
         **selectors,
         pagedata='',
@@ -72,6 +98,7 @@ def jobedit(request):
         next_url = request.route_url('job_detail', jobid=job.id)
         return HTTPFound(location=next_url)
     selectors = _get_job_selectors(request)
+
     return dict(
         **selectors,
         job=job,

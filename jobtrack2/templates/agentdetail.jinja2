@@ -33,6 +33,7 @@
               </a>
             </li>
           {% endfor %}
+          <li><a href="{{request.route_url('job_add', _query={'agentid':agent.id, 'agencyid':agent.agency.id}) }}"><button type="button" class="btn btn-dark btn-sm">Add</button></a></li>
         </ul>
       </td>
     </tr>
@@ -40,13 +41,13 @@
       <th>Notes</th>
       <td>
         <ul>
-        {% for note in agent.job_notes %}
-          <li>
-            {{note.adddate.date()}} -
-            <a href="{{request.route_url('job_detail', jobid=note.job.id)}}">{{note.job.title}}</a> -
-            {{note.data}}
-          </li>
-        {% endfor %}
+          {% for note in agent.job_notes %}
+            <li>
+              {{note.adddate.date()}} -
+              <a href="{{request.route_url('job_detail', jobid=note.job.id)}}">{{note.job.title}}</a> -
+              {{note.data}}
+            </li>
+          {% endfor %}
         </ul>
       </td>
     </tr>

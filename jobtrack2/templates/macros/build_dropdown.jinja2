@@ -6,6 +6,8 @@
 
     <label for="input{{fieldname}}" class="col-sm-2 col-form-label col-form-label-sm">{{label}}</label>
     <div class="col-sm-10">
+{# If its not iterable is the fixed (pre)selected object so we dont give a dropdown #}
+{% if list is iterable %}
     <select class="form-control" id="input{{fieldname}}" name="{{fieldname}}">
         <option id="0" value="0"
           {%if selectedid != None and 0 == selectedid %}selected{% endif %}
@@ -24,6 +26,14 @@
         </option>
       {% endfor %}
     </select>
+{%else%}
+    {%if list.name %}
+      {{list.name}}
+    {%else%}
+      {{list.description}}
+    {%endif%}
+    <input type="hidden" name="{{fieldname}}" value="{{list.id}}">
+{% endif %}
 
     </div>
 
