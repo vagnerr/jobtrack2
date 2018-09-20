@@ -7,12 +7,13 @@
     <label for="input{{fieldname}}" class="col-sm-2 col-form-label col-form-label-sm">{{label}}</label>
     <div class="col-sm-10">
     <select class="form-control" id="input{{fieldname}}" name="{{fieldname}}">
-        <option id="0"
+        <option id="0" value="0"
           {%if selectedid != None and 0 == selectedid %}selected{% endif %}
           > --None -- </option>
       {% for listitem in list %}
         <option
             id="{{listitem.id}}"
+            value="{{listitem.id}}"
             {%if selectedid != None and listitem.id == selectedid%}selected{% endif %}
           >
             {%if listitem.name %}

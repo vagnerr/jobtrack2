@@ -23,8 +23,18 @@ def jobdetail(request):
 def jobadd(request):
     #pagename = request.context.pagename
     if 'form.submitted' in request.params:
-        jobname = request.params['jobname']
-        job = Job(name=jobname)
+        job = Job(
+            title = request.params['title'],
+            reference = request.params['reference'],
+            nextaction_id = request.params['nextaction'],
+            type_id = request.params['type'],
+            salary = request.params['salary'],
+            company_id = request.params['company'],
+            location_id = request.params['location'],
+            source_id = request.params['source'],
+            agency_id = request.params['agency'],
+            status_id = request.params['status'],
+        )
         job.creator = request.user
         request.dbsession.add(job)
         request.dbsession.flush()
@@ -33,32 +43,52 @@ def jobadd(request):
         request.session.flash("success:Job added.", "alerts")
         return HTTPFound(location=next_url)
     save_url = request.route_url('job_add')
-    return dict(pagedata='', job=None, save_url=save_url,page_title="New Job",)
+    selectors = _get_job_selectors(request)
+    return dict(
+        **selectors,
+        pagedata='',
+        job=Job(),
+        save_url=save_url,
+        page_title="New Job",
+        )
 
 @view_config(route_name='job_edit', renderer='../templates/jobedit.jinja2', permission='edit')
 def jobedit(request):
     job = request.context.job
 
     if 'form.submitted' in request.params:
-        job.name = request.params['jobname']
+        job.title = request.params['title']
+        job.reference = request.params['reference']
+        job.nextaction_id = request.params['nextaction']
+        job.type_id = request.params['type']
+        job.salary = request.params['salary']
+        job.company_id = request.params['company']
+        job.location_id = request.params['location']
+        job.source_id = request.params['source']
+        job.agency_id = request.params['agency']
+        job.status_id = request.params['status']
+
         request.session.flash("success:Job updated.", "alerts")
         next_url = request.route_url('job_detail', jobid=job.id)
         return HTTPFound(location=next_url)
-
-    actions = list(request.dbsession.query(NextAction))
+    selectors = _get_job_selectors(request)
     return dict(
+        **selectors,
         job=job,
-        nextactions=actions,
+        save_url=request.route_url('job_edit', jobid=job.id),
+        page_title="Edit Job",
+        )
+
+def _get_job_selectors(request):
+    return dict(
+        nextactions=request.dbsession.query(NextAction),
         jobtypes=request.dbsession.query(JobType),
         companies=request.dbsession.query(Company),
         locations=request.dbsession.query(Location),
         sources=request.dbsession.query(Source),
         agencies=request.dbsession.query(Agency),
         statuses=request.dbsession.query(Status),
-        save_url=request.route_url('job_edit', jobid=job.id),
-        page_title="Edit Job",
         )
-
 
 #TODO: Probably should put this error message somewhere central
 db_err_msg = """\
