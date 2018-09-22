@@ -20,6 +20,7 @@ def includeme(config):
     config.add_route('agency_list','/agency')
     config.add_route('agency_detail','/agency/{agencyid}', factory=agency_factory)
     config.add_route('agent_list','/agent')
+    config.add_route('agent_list_jn','/agent.json')
     config.add_route('agent_detail','/agent/{agentid}', factory=agent_factory)
     config.add_route('company_list','/company')
     config.add_route('company_detail','/company/{companyid}', factory=company_factory)
@@ -31,7 +32,6 @@ def includeme(config):
     config.add_route('company_edit', '/company/{companyid}/edit', factory=company_factory)
     config.add_route('job_add', '/add_job', factory=new_resource_factory)
     config.add_route('job_edit', '/job/{jobid}/edit', factory=job_factory)
-
 
 
 #def new_page_factory(request):

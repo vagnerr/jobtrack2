@@ -3,14 +3,21 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
 
+
 from ..models import Agent,Agency
 
 @view_config(route_name='agent_list', renderer='../templates/agentlist.jinja2')
+@view_config(route_name='agent_list_jn', renderer='json')  # TODO change to use predicates
 def agentlist(request):
     try:
         query = request.dbsession.query(Agent)
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
+    if 'agencyid' in request.params:
+        return {
+            'agents': query.filter_by(agency_id=request.params['agencyid']),
+            'project': 'JobTrack2'
+        }
     return {'agents': query.all(), 'project': 'JobTrack2'}
 
 @view_config(route_name='agent_detail', renderer='../templates/agentdetail.jinja2', permission='view')
