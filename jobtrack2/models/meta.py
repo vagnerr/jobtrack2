@@ -22,7 +22,7 @@ class MixJsonBase(object):
     # we don't then an array of items being returned gets
     # gets an additional string quotation layer added :-(
     def __json__(self, o):
-        return self.to_dict()
+        return self.to_dict()  #pylint: disable=E1101
 
 
 
