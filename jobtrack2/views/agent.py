@@ -15,7 +15,7 @@ def agentlist(request):
         return Response(db_err_msg, content_type='text/plain', status=500)
     if 'agencyid' in request.params:
         return {
-            'agents': query.filter_by(agency_id=request.params['agencyid']),
+            'agents': query.filter_by(agency_id=request.params['agencyid']).all(),
             'project': 'JobTrack2'
         }
     return {'agents': query.all(), 'project': 'JobTrack2'}
