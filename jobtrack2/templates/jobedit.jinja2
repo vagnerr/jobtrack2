@@ -58,4 +58,31 @@
 
 
 </div>
+
 {% endblock content %}
+
+{% block footerjs %}
+    <script language="JavaScript">
+  $(document).ready(function() {
+      $('#inputagency').on('change', function() {
+       // alert("agent selelected");
+       agencyid = $('#inputagency').val()
+       //alert("AID=" + agencyid);
+    $.ajax({
+        url     : "{{request.route_url('agent_list_jn')}}?agencyid="+ agencyid,
+        type    : 'POST',
+        dataType: 'json',
+        success : function(data){
+
+            alert("Success. Got the message:\n "+ JSON.stringify(data))
+        },
+        error : function(xj, status, error){
+            alert("Something went wrong "+status + " <-> " + error)
+        }
+
+    });
+      });
+  });
+</script>
+
+{% endblock footerjs %}
