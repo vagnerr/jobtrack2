@@ -9,20 +9,12 @@
 {# If its not iterable is the fixed (pre)selected object so we dont give a dropdown #}
 {% if list is iterable %}
     <select class="form-control" id="input{{fieldname}}" name="{{fieldname}}">
-        <option id="0" value="0"
-          {%if selectedid != None and 0 == selectedid %}selected{% endif %}
-          > --None -- </option>
+        <option id="0" value="0" {%if selectedid != None and 0 == selectedid %}selected{% endif %}>
+          --None --
+        </option>
       {% for listitem in list %}
-        <option
-            id="{{listitem.id}}"
-            value="{{listitem.id}}"
-            {%if selectedid != None and listitem.id == selectedid%}selected{% endif %}
-          >
-            {%if listitem.name %}
-              {{listitem.name}}
-            {%else%}
-              {{listitem.description}}
-            {%endif%}
+        <option id="{{listitem.id}}"value="{{listitem.id}}" {%if selectedid != None and listitem.id == selectedid%}selected{% endif %} >
+            {%if listitem.name %}{{listitem.name}}{%else%}{{listitem.description}}{%endif%}
         </option>
       {% endfor %}
     </select>
