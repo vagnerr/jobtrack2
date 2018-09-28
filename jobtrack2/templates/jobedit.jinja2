@@ -75,6 +75,49 @@
         success : function(data){
 
             alert("Success. Got the message:\n "+ JSON.stringify(data))
+//var text = document.createTextNode('<label for="inputagent" class="col-sm-2 col-form-label col-form-label-sm">Agent</label><div class="col-sm-10"><select class="form-control" id="inputagent" name="agent"><option id="0" value="0" >--None --</option></select></div>');
+var child = document.getElementById('inputagency').parentNode;
+
+
+
+var label = document.createElement('label');
+label.for='inputagent';
+label.className='col-sm-2 col-form-label col-form-label-sm';
+label.appendChild(document.createTextNode('Agent'));
+
+insertAfter(label, child);
+
+var div = document.createElement('div');
+div.className='col-sm-10';
+//var par = document.createElement('p')
+//div.appendChild(par);
+//par.appendChild(document.createTextNode('hello world'));
+
+
+var select = document.createElement('select');
+select.className='form-control';
+select.id='inputagent';
+select.name='agent';
+
+var option = document.createElement('option');
+option.id=0;
+option.value=0;
+option.appendChild(document.createTextNode('---POC None---'));
+select.appendChild(option)
+
+for (var i = 0; i < data.agents.length; i++){
+    var agent = data.agents[i];
+    var option = document.createElement('option');
+    option.id = agent.id;
+    option.value = agent.id;
+    option.appendChild(document.createTextNode(agent.name));
+    select.appendChild(option)
+
+}
+
+div.appendChild(select);
+insertAfter(div, label);
+
         },
         error : function(xj, status, error){
             alert("Something went wrong "+status + " <-> " + error)
@@ -83,6 +126,11 @@
     });
       });
   });
+
+  //https://stackoverflow.com/a/4793630/3720
+  function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
 </script>
 
 {% endblock footerjs %}
