@@ -76,16 +76,27 @@
 
             alert("Success. Got the message:\n "+ JSON.stringify(data))
 //var text = document.createTextNode('<label for="inputagent" class="col-sm-2 col-form-label col-form-label-sm">Agent</label><div class="col-sm-10"><select class="form-control" id="inputagent" name="agent"><option id="0" value="0" >--None --</option></select></div>');
-var child = document.getElementById('inputagency').parentNode;
+var parent = document.getElementById('inputagency').parentNode;
 
-
+pp = parent.parentNode;
+// Remove old copy if it exists
+var oldlabel = document.getElementById('inputagentlabel');
+var oldselect = document.getElementById('inputagent');
+if (oldlabel) {
+    pp.removeChild(oldlabel);
+}
+if (oldselect) {
+    olddiv = oldselect.parentNode
+    pp.removeChild(olddiv);
+}
 
 var label = document.createElement('label');
+label.id='inputagentlabel';
 label.for='inputagent';
 label.className='col-sm-2 col-form-label col-form-label-sm';
 label.appendChild(document.createTextNode('Agent'));
 
-insertAfter(label, child);
+insertAfter(label, parent);
 
 var div = document.createElement('div');
 div.className='col-sm-10';
@@ -102,7 +113,7 @@ select.name='agent';
 var option = document.createElement('option');
 option.id=0;
 option.value=0;
-option.appendChild(document.createTextNode('---POC None---'));
+option.appendChild(document.createTextNode('---POC None---'+agencyid));
 select.appendChild(option)
 
 for (var i = 0; i < data.agents.length; i++){
