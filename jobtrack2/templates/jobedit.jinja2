@@ -74,7 +74,7 @@
         dataType: 'json',
         success : function(data){
 
-            alert("Success. Got the message:\n "+ JSON.stringify(data))
+//            alert("Success. Got the message:\n "+ JSON.stringify(data))
 //var text = document.createTextNode('<label for="inputagent" class="col-sm-2 col-form-label col-form-label-sm">Agent</label><div class="col-sm-10"><select class="form-control" id="inputagent" name="agent"><option id="0" value="0" >--None --</option></select></div>');
 var parent = document.getElementById('inputagency').parentNode;
 
@@ -90,6 +90,7 @@ if (oldselect) {
     pp.removeChild(olddiv);
 }
 
+if (data.agents.length > 0) {
 var label = document.createElement('label');
 label.id='inputagentlabel';
 label.for='inputagent';
@@ -129,6 +130,7 @@ for (var i = 0; i < data.agents.length; i++){
 div.appendChild(select);
 insertAfter(div, label);
 
+}
         },
         error : function(xj, status, error){
             alert("Something went wrong "+status + " <-> " + error)

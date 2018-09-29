@@ -98,6 +98,9 @@ def jobedit(request):
         next_url = request.route_url('job_detail', jobid=job.id)
         return HTTPFound(location=next_url)
     selectors = _get_job_selectors(request)
+    if job.agency_id:
+        agents = request.dbsession.query(Agent).filter_by(agency_id=job.agency_id)
+        selectors.update({'agents': agents})
 
     return dict(
         **selectors,
